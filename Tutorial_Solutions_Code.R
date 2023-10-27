@@ -1,6 +1,7 @@
 
-PRACTICE: https://rstudio.github.io/leaflet/popups.html
+#PRACTICE: https://rstudio.github.io/leaflet/popups.html
   
+# General example
 content <- paste(sep = "<br/>",
   "<b><a href='http://www.samurainoodle.com'>Samurai Noodle</a></b>",
   "606 5th Ave. S",
@@ -12,8 +13,24 @@ leaflet() %>% addTiles() %>%
     options = popupOptions(closeButton = FALSE)
   )  
   
--- ADJUSTED---  
+  
+## Create and Customize the Base Map and the Initial View
+myMap_1 <- leaflet() %>%
+  setView(lng = 13.3892, lat = 52.5128, zoom = 12) %>% 
+  addTiles()
+print(myMap_1)
 
+
+## Add data layers, Customize Popups
+myMap_2 <- myMap_1 %>% addCircles(
+  lng = 13.3892,   # Longitude of the circle's center
+  lat = 52.5128,   # Latitude of the circle's center
+  radius = 300,   # Radius of the circle in meters
+  color = "blue",   # Color of the circle
+)
+print(myMap_2)
+
+# But, we can create popups as well
 content <- paste(sep = "<br/>",
                  "<b><a href='https://www.hertie-school.org/en/'>Hertie School</a></b>",
                  "Friedrichstraße 180",
@@ -25,7 +42,8 @@ leaflet() %>% addTiles() %>%
             options = popupOptions(closeButton = FALSE)
   )  
 
------
+
+### Practical example
 # Importing the data
 deforestation <- read_xlsx("COL.xlsx", 
                            sheet = "Subnational 2 tree cover loss") %>%
@@ -40,7 +58,6 @@ deforestation <- read_xlsx("COL.xlsx",
 map <- sf::st_read("shapes/shapes.shp", 
                    stringsAsFactors = FALSE) %>%
   arrange(nombre_mpi)
-
 
 # Function to remove accents
 remove_accents <- function(input_string) {
@@ -77,20 +94,9 @@ def_popup <- glue("<strong>{deforestation_map$nombre_mpi}</strong><br />
 
 #Final map
 leaflet() %>%
-  addProviderTiles("OpenStreetMap") %>%
-  addPolygons(
-    data = deforestation_map,
-    fillColor = ~palette(deforestation_map$`gain_2000-2020_ha`),
-    label = def_popup,
-    fillOpacity = 1,
-    color = "grey",
-    weight = 1
-  )
-
-
-#Final Map Version 2
-leaflet() %>%
-  addProviderTiles(providers$Stadia.AlidadeSmooth) %>%
+  #addTiles() %>% #For the default map
+  addProviderTiles("CartoDB.Positron") %>% #For one of the options included in the addProviderTiles() function
+  #addTiles(urlTemplate = "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}") %>% #For an example of third party tiles
   addPolygons(
     data = deforestation_map,
     fillColor = ~palette(deforestation_map$`gain_2000-2020_ha`),

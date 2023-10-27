@@ -33,7 +33,57 @@ library(pacman)
 pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
 ```
 
-<h3><strong>Cleaning Data sets</strong></h3>
+<h2><strong>General example </strong></h2>
+```{r, include = T}
+content <- paste(sep = "<br/>",
+  "<b><a href='http://www.samurainoodle.com'>Samurai Noodle</a></b>",
+  "606 5th Ave. S",
+  "Seattle, WA 98138"
+)
+
+leaflet() %>% addTiles() %>%
+  addPopups(-122.327298, 47.597131, content,
+    options = popupOptions(closeButton = FALSE)
+  )  
+```
+<h4><strong>Customized map</strong></h4>
+```{r, include = T}
+## Create and Customize the Base Map and the Initial View
+leaflet() %>%
+  setView(lng = 13.3892, lat = 52.5128, zoom = 12) %>% 
+  addTiles()
+```
+<h4><strong>Adding layers</strong></h4>
+```{r, include = T}
+
+## Add data layers, Customize
+leaflet() %>%
+  setView(lng = 13.3892, lat = 52.5128, zoom = 12) %>% 
+  addTiles() %>% 
+  addCircles(
+  lng = 13.3892,   # Longitude of the circle's center
+  lat = 52.5128,   # Latitude of the circle's center
+  radius = 300,   # Radius of the circle in meters
+  color = "blue",   # Color of the circle
+)
+```
+<h4><strong>Adding popups</strong></h4>
+```{r, include = T}
+# But, we can create popups as well
+content <- paste(sep = "<br/>",
+                 "<b><a href='https://www.hertie-school.org/en/'>Hertie School</a></b>",
+                 "Friedrichstraße 180",
+                 "10117 Berlin"
+)
+  
+leaflet() %>% addTiles() %>%
+  addPopups(13.389223597194448, 52.51298665365591, content,
+            options = popupOptions(closeButton = FALSE)
+  )  
+```
+
+<h2><strong>Practical exercise</strong></h2>
+<h4><strong>Cleaning Data sets</strong></h4>
 
 Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/data set/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise.
 
@@ -66,7 +116,7 @@ deforestation$nombre_mpi <- sapply(deforestation$nombre_mpi, remove_accents)
 deforestation$nombre_dpt <- sapply(deforestation$nombre_dpt, remove_accents)
 ```
 
-<h3><strong>Merging Data sets</strong></h3>
+<h4><strong>Merging Data sets</strong></h4>
 
 After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation data set
 
@@ -81,7 +131,7 @@ not_m <- map %>%
   arrange(nombre_mpi)
 ```
 
-<h3><strong>Getting creative with the map</strong></h3>
+<h4><strong>Getting creative with the map</strong></h4>
 
 Now that we have the data needed for our map, we can create a palette of colors and some tags
 
@@ -95,7 +145,7 @@ palette <- colorNumeric(palette = "Greens", domain = deforestation_map$`gain_200
 #We create some tags by municipality using the glue and the htmltools packages
 def_popup <- glue("<strong>{deforestation_map$nombre_mpi}</strong><br />
                     <strong>Department: {deforestation_map$nombre_dpt}</strong><br />
-                    Total area (ha): {deforestation_map$area_ha}<br /> 
+                    Total area (ha): {scales::comma(deforestation_map$area_ha)}<br /> 
                     Gained ha of trees (2002-2020): {scales::comma(deforestation_map$`gain_2000-2020_ha`, accuracy = 1)}<br />
                     Tree cover loss 2022 (ha): {scales::comma(deforestation_map$tc_loss_ha_2022, accuracy = 1)}<br />")  %>%   
   lapply(htmltools::HTML)

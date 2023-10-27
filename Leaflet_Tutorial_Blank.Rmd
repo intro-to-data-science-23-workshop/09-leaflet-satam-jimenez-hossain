@@ -34,7 +34,57 @@ library(pacman)
 pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
 ```
 
-<h3><strong>Cleaning Data sets</strong></h3>
+<h2><strong>General example </strong></h2>
+```{r, include = T}
+content <- paste(sep = "<br/>",
+  "<b><a href='http://www.samurainoodle.com'>Samurai Noodle</a></b>",
+  "606 5th Ave. S",
+  "Seattle, WA 98138"
+)
+
+leaflet() %>% addTiles() %>%
+  addPopups(-122.327298, 47.597131, content,
+    options = popupOptions(closeButton = FALSE)
+  )  
+```
+<h4><strong>Customized map</strong></h4>
+```{r, include = T}
+## Create and Customize the Base Map and the Initial View
+myMap_1 <- leaflet() %>%
+  setView(lng = 13.3892, lat = 52.5128, zoom = 12) %>% 
+  addTiles()
+print(myMap_1)
+```
+<h4><strong>Adding layers</strong></h4>
+```{r, include = T}
+
+## Add data layers, Customize
+myMap_2 <- myMap_1 %>% addCircles(
+  lng = 13.3892,   # Longitude of the circle's center
+  lat = 52.5128,   # Latitude of the circle's center
+  radius = 300,   # Radius of the circle in meters
+  color = "blue",   # Color of the circle
+)
+print(myMap_2)
+```
+<h4><strong>Adding popups</strong></h4>
+```{r, include = T}
+# But, we can create popups as well
+content <- paste(sep = "<br/>",
+                 "<b><a href='https://www.hertie-school.org/en/'>Hertie School</a></b>",
+                 "Friedrichstraße 180",
+                 "10117 Berlin"
+)
+  
+leaflet() %>% addTiles() %>%
+  addPopups(13.389223597194448, 52.51298665365591, content,
+            options = popupOptions(closeButton = FALSE)
+  )  
+```
+
+<h2><strong>Practical exercise</strong></h2>
+
+<h4><strong>Cleaning Data sets</strong></h4>
 
 -   `read_xlsx()` read Excel files
 
@@ -56,7 +106,7 @@ Since we are working with data from Colombia, some of the municipalities for the
 
 ```
 
-<h3><strong>Merging Data sets</strong></h3>
+<h4><strong>Merging Data sets</strong></h4>
 
 After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation data set.
 
@@ -68,7 +118,7 @@ After cleaning the data, we need to merge the different files. There are 91 muni
 
 ```
 
-<h3><strong>Getting creative with the map</strong></h3>
+<h4><strong>Getting creative with the map</strong></h4>
 
 Now that we have the data needed for our map, we can create a palette of colors and some tags.
 
@@ -82,7 +132,7 @@ Now that we have the data needed for our map, we can create a palette of colors 
 
 -   `addPolygons()`
 
--   `names(providers)` search available basemaps
+-   `names(providers)` search available base maps
 
 ```{r, include = T}
 
