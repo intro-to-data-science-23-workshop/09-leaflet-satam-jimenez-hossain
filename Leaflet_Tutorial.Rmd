@@ -1,0 +1,109 @@
+---
+title: "Interactive Maps with Leaflet"
+subtitle: "Life Tutorial"
+author: "Camilo Pedraza Jimenez, Ray Hossain, Manjiri Satam"
+date: "`r format(Sys.time(), '%B %d, %Y | %H:%M:%S | %Z')`"
+output:
+  html_document:
+    code_folding: show
+    df_print: paged
+    highlight: tango
+    number_sections: no
+    theme: cosmo
+    toc: no
+---
+<style>
+div.answer {background-color:#f3f0ff; border-radius: 5px; padding: 20px;}
+</style>
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      error = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      comment = NA)
+```
+
+First, we install the packages that we need to use.
+```{r, include = T}
+library(pacman)
+pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
+```
+
+<h3><strong>Cleaning Datasets</strong></h3>
+
+Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/dataset/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise. 
+
+```{r}
+deforestation <- read_xlsx("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/COL.xlsx", 
+                           sheet = "Subnational 2 tree cover loss") %>%
+  distinct(subnational2, .keep_all = TRUE) %>%
+  mutate(subnational2 = toupper(subnational2),
+         subnational1 = toupper(subnational1),
+         pct_gain = `gain_2000-2020_ha`/area_ha) %>%
+  rename(nombre_mpi = subnational2,
+         nombre_dpt = subnational1) %>%
+  arrange(nombre_mpi)
+
+map <- sf::st_read("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/shapes/shapes.shp", 
+                   stringsAsFactors = FALSE) %>%
+  arrange(nombre_mpi)
+```
+
+Since we are working with data from Colombia, some of the municipalities for the "deforestation" dataset include the accent. Thus, we use the `stri_trans_general()` function from the package `stringi`. However, since the Spanish language also uses the Ñ and the Ü, we do not want ot get rid of those. Therefore, we need to create a function:
+```{r, include = T}
+# Function to remove accents
+remove_accents <- function(input_string) {
+  paste(sapply(strsplit(input_string, "")[[1]], function(x) ifelse(x %in% c("Ñ", "Ü"), x, stringi::stri_trans_general(x, "Latin-ASCII"))), collapse = "")
+}
+
+# Apply the function to the vector
+deforestation$nombre_mpi <- sapply(deforestation$nombre_mpi, remove_accents)
+deforestation$nombre_dpt <- sapply(deforestation$nombre_dpt, remove_accents)
+```
+
+<h3><strong>Merging Datasets</strong></h3>
+
+After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation dataset
+```{r, include = T}
+#Merging data
+deforestation_map <- full_join(map, deforestation, by = c("nombre_mpi", "nombre_dpt"))
+
+#No matches
+not_m <- map %>%
+  anti_join(deforestation, by = c("nombre_mpi", "nombre_dpt")) %>%
+  arrange(nombre_mpi)
+```
+
+<h3><strong>Getting creative with the map</strong></h3>
+
+Now that we have the data needed for our map, we can create a palette of colors and some tags
+
+```{r, include = T}
+#The palette of colors is based on a scale of greens that changes based on the gained ha of trees between 2002 and 2020 by municipality
+palette <- colorNumeric(palette = "Greens", domain = deforestation_map$`gain_2000-2020_ha`)
+
+#We create some tags by municipality using the glue and the htmltools packages
+def_popup <- glue("<strong>{deforestation_map$nombre_mpi}</strong><br />
+                    <strong>Department: {deforestation_map$nombre_dpt}</strong><br />
+                    Total area (ha): {deforestation_map$area_ha}<br /> 
+                    Gained ha of trees (2002-2020): {scales::comma(deforestation_map$`gain_2000-2020_ha`, accuracy = 1)}<br />
+                    Tree cover loss 2022 (ha): {scales::comma(deforestation_map$tc_loss_ha_2022, accuracy = 1)}<br />")  %>%   
+  lapply(htmltools::HTML)
+
+#Final map
+leaflet() %>%
+  addProviderTiles("OpenStreetMap") %>%
+  addPolygons(
+    data = deforestation_map,
+    fillColor = ~palette(deforestation_map$`gain_2000-2020_ha`),
+    label = def_popup,
+    fillOpacity = 1,
+    color = "grey",
+    weight = 1
+  )
+```
+
+
+
