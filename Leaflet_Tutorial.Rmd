@@ -94,7 +94,9 @@ def_popup <- glue("<strong>{deforestation_map$nombre_mpi}</strong><br />
 
 #Final map
 leaflet() %>%
-  addProviderTiles("OpenStreetMap") %>%
+  #addTiles() %>% #For the default map
+  addProviderTiles("CartoDB.Positron") %>% #For one of the options included in the addProviderTiles() function
+  #addTiles(urlTemplate = "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}") %>% #For an example of third party tiles
   addPolygons(
     data = deforestation_map,
     fillColor = ~palette(deforestation_map$`gain_2000-2020_ha`),
@@ -104,6 +106,3 @@ leaflet() %>%
     weight = 1
   )
 ```
-
-
-
