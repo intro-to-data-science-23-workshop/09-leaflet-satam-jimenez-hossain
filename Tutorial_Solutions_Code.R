@@ -1,4 +1,31 @@
 
+PRACTICE: https://rstudio.github.io/leaflet/popups.html
+  
+content <- paste(sep = "<br/>",
+  "<b><a href='http://www.samurainoodle.com'>Samurai Noodle</a></b>",
+  "606 5th Ave. S",
+  "Seattle, WA 98138"
+)
+
+leaflet() %>% addTiles() %>%
+  addPopups(-122.327298, 47.597131, content,
+    options = popupOptions(closeButton = FALSE)
+  )  
+  
+-- ADJUSTED---  
+
+content <- paste(sep = "<br/>",
+                 "<b><a href='https://www.hertie-school.org/en/'>Hertie School</a></b>",
+                 "Friedrichstraße 180",
+                 "10117 Berlin"
+)
+  
+leaflet() %>% addTiles() %>%
+  addPopups(13.389223597194448, 52.51298665365591, content,
+            options = popupOptions(closeButton = FALSE)
+  )  
+
+-----
 # Importing the data
 deforestation <- read_xlsx("COL.xlsx", 
                            sheet = "Subnational 2 tree cover loss") %>%
