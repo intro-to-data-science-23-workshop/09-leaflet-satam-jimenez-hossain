@@ -1,6 +1,6 @@
-<a href="https://rstudio.github.io/leaflet/"><img src="logo.png" width="350px"/></a>
+<a href="https://rstudio.github.io/leaflet/"><img src="logo.png" width="250px" height="100px"/></a>
 
-# Interactive maps with leaflet
+# Interactive maps with Leaflet
 
 
 ## Summary
