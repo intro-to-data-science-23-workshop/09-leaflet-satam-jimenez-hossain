@@ -34,7 +34,7 @@ library(pacman)
 pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
 ```
 
-<h3><strong>Cleaning Datasets</strong></h3>
+<h3><strong>Cleaning Data sets</strong></h3>
 
 -   `read_xlsx()` read Excel files
 
@@ -46,7 +46,7 @@ Now, we import the data sets that we are going to use. The deforestation data wa
 
 ```
 
-Since we are working with data from Colombia, some of the municipalities for the "deforestation" dataset include the accent. Thus, we use the `stri_trans_general()` function from the package `stringi`. However, since the Spanish language also uses the Ñ and the Ü, we do not want ot get rid of those. Therefore, we need to create a function:
+Since we are working with data from Colombia, some of the municipalities for the "deforestation" data set include the accent. Thus, we use the `stri_trans_general()` function from the package `stringi`. However, since the Spanish language also uses the Ñ and the Ü, we do not want of get rid of those. Therefore, we need to create a function:
 
 -   custom `function()`
 
@@ -56,9 +56,9 @@ Since we are working with data from Colombia, some of the municipalities for the
 
 ```
 
-<h3><strong>Merging Datasets</strong></h3>
+<h3><strong>Merging Data sets</strong></h3>
 
-After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation dataset.
+After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation data set.
 
 -   `full_join()` join every field including non-matches
 
@@ -74,11 +74,11 @@ Now that we have the data needed for our map, we can create a palette of colors 
 
 -   `leaflet()` function to use leaflet
 
--   `addTiles()` adds basemap to your map
+-   `addTiles()` adds base map to your map
 
     -   `addProviderTiles()` gets third party tiles
 
-    -   `addProviderTiles(providers$Stadia.AlidadeSmooth)`
+    -   `addProviderTiles(providers$Stadia.AlidadeSmooth)` an example of a third party base map
 
 -   `addPolygons()`
 

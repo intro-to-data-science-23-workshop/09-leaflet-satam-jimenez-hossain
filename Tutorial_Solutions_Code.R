@@ -1,6 +1,6 @@
 
 # Importing the data
-deforestation <- read_xlsx("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/COL.xlsx", 
+deforestation <- read_xlsx("COL.xlsx", 
                            sheet = "Subnational 2 tree cover loss") %>%
   distinct(subnational2, .keep_all = TRUE) %>%
   mutate(subnational2 = toupper(subnational2),
@@ -10,16 +10,19 @@ deforestation <- read_xlsx("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/I
          nombre_dpt = subnational1) %>%
   arrange(nombre_mpi)
 
-map <- sf::st_read("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/shapes/shapes.shp", 
+map <- sf::st_read("shapes/shapes.shp", 
                    stringsAsFactors = FALSE) %>%
   arrange(nombre_mpi)
 
 
 # Function to remove accents
-  remove_accents <- function(input_string) {
-    paste(
-      sapply(strsplit(input_string, "")[[1]], function(x) ifelse(x %in% c("Ñ", "Ü"), x, stringi::stri_trans_general(x, "Latin-ASCII"))), collapse = "")
-  }
+remove_accents <- function(input_string) {
+  paste(sapply(strsplit(input_string, "")[[1]], function(x) ifelse(x %in% c("Ñ", "Ü"), x, stringi::stri_trans_general(x, "Latin-ASCII"))), collapse = "")
+}
+
+# Apply the function to the vector
+deforestation$nombre_mpi <- sapply(deforestation$nombre_mpi, remove_accents)
+deforestation$nombre_dpt <- sapply(deforestation$nombre_dpt, remove_accents)
 
 # Apply the function to the vector
 deforestation$nombre_mpi <- sapply(deforestation$nombre_mpi, remove_accents)

@@ -12,10 +12,12 @@ output:
     theme: cosmo
     toc: no
 ---
+
+```{=html}
 <style>
 div.answer {background-color:#f3f0ff; border-radius: 5px; padding: 20px;}
 </style>
-
+```
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE,
@@ -26,6 +28,7 @@ knitr::opts_chunk$set(echo = TRUE,
 ```
 
 First, we install the packages that we need to use.
+
 ```{r, include = T}
 library(pacman)
 pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
@@ -33,7 +36,7 @@ pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, s
 
 <h3><strong>Cleaning Datasets</strong></h3>
 
-Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/dataset/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise. 
+Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/dataset/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise.
 
 ```{r}
 deforestation <- read_xlsx("COL.xlsx", 
@@ -52,6 +55,7 @@ map <- sf::st_read("shapes/shapes.shp",
 ```
 
 Since we are working with data from Colombia, some of the municipalities for the "deforestation" dataset include the accent. Thus, we use the `stri_trans_general()` function from the package `stringi`. However, since the Spanish language also uses the Ñ and the Ü, we do not want ot get rid of those. Therefore, we need to create a function:
+
 ```{r, include = T}
 # Function to remove accents
 remove_accents <- function(input_string) {
@@ -66,6 +70,7 @@ deforestation$nombre_dpt <- sapply(deforestation$nombre_dpt, remove_accents)
 <h3><strong>Merging Datasets</strong></h3>
 
 After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation dataset
+
 ```{r, include = T}
 #Merging data
 deforestation_map <- full_join(map, deforestation, by = c("nombre_mpi", "nombre_dpt"))
@@ -104,6 +109,3 @@ leaflet() %>%
     weight = 1
   )
 ```
-
-
-
