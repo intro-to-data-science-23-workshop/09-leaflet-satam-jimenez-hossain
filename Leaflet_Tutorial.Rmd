@@ -36,7 +36,7 @@ pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, s
 Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/dataset/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise. 
 
 ```{r}
-deforestation <- read_xlsx("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/COL.xlsx", 
+deforestation <- read_xlsx("COL.xlsx", 
                            sheet = "Subnational 2 tree cover loss") %>%
   distinct(subnational2, .keep_all = TRUE) %>%
   mutate(subnational2 = toupper(subnational2),
@@ -46,7 +46,7 @@ deforestation <- read_xlsx("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/I
          nombre_dpt = subnational1) %>%
   arrange(nombre_mpi)
 
-map <- sf::st_read("C:/Users/cpedr/OneDrive - Hertie School/Semester 3/Intro to DS/Workshop/Exercise/shapes/shapes.shp", 
+map <- sf::st_read("shapes/shapes.shp", 
                    stringsAsFactors = FALSE) %>%
   arrange(nombre_mpi)
 ```
