@@ -5,7 +5,7 @@
 
 ## Summary
 
-This repository provides materials for a session that is part of the [I2DS Tools for Data Science workshop](https://github.com/intro-to-data-science-23-workshop) run at the [Hertie School, Berlin](https://www.hertie-school.org/en/) in October 2023. The student-run workshop is part of the course [Introduction to Data Science](https://github.com/intro-to-data-science-23) taught by Simon Munzert at the Hertie School, Berlin, in Fall 2023.
+This repository provides materials for a session that is part of the [IDS Tools for Data Science workshop](https://github.com/intro-to-data-science-23-workshop) run at the [Hertie School, Berlin](https://www.hertie-school.org/en/) in October 2023. The student-run workshop is part of the course [Introduction to Data Science](https://github.com/intro-to-data-science-23) taught by Simon Munzert at the Hertie School, Berlin, in Fall 2023.
 
 ### Session contents
 
