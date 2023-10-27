@@ -20,7 +20,7 @@ The goals of this session are to (1) equip you with conceptual knowledge about t
 
 ## Instructors
 
-- Manjiri Satam 
+- Manjiri Girish Satam 
 - Ray Hossain
 - Camilo Pedraza Jiménez
 
