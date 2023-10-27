@@ -1,0 +1,89 @@
+---
+title: "Interactive Maps with Leaflet"
+subtitle: "Life Tutorial"
+author: "Camilo Pedraza Jimenez, Ray Hossain, Manjiri Satam"
+date: "`r format(Sys.time(), '%B %d, %Y | %H:%M:%S | %Z')`"
+output:
+  html_document:
+    code_folding: show
+    df_print: paged
+    highlight: tango
+    number_sections: no
+    theme: cosmo
+    toc: no
+---
+
+```{=html}
+<style>
+div.answer {background-color:#f3f0ff; border-radius: 5px; padding: 20px;}
+</style>
+```
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      error = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      comment = NA)
+```
+
+First, we install the packages that we need to use.
+
+```{r, include = T}
+library(pacman)
+pacman::p_load(leaflet, tidyverse, htmltools, terra, sf, scales, glue, readxl, stringi)
+```
+
+<h3><strong>Cleaning Data sets</strong></h3>
+
+-   `read_xlsx()` read Excel files
+
+-   `st_read()` used to read Shapefiles
+
+Now, we import the data sets that we are going to use. The deforestation data was collected by the [Global Forest Watch](https://www.globalforestwatch.org/) and the specific data for Colombia can be found [here](https://gfw.global/478KQ1A). The geographic files for the municipalities of Colombia are shared by [Laboratorio Urbano - Bogotá](https://bogota-laburbano.opendatasoft.com/pages/home/) and they can be accessed [here](https://bogota-laburbano.opendatasoft.com/explore/dataset/shapes/export/?location=6,4.85836,-73.2019&basemap=jawg.streets). Although, the files come in different formats, we decided to used the `Shapefile` format for this exercise.
+
+```{r}
+
+```
+
+Since we are working with data from Colombia, some of the municipalities for the "deforestation" data set include the accent. Thus, we use the `stri_trans_general()` function from the package `stringi`. However, since the Spanish language also uses the Ñ and the Ü, we do not want of get rid of those. Therefore, we need to create a function:
+
+-   custom `function()`
+
+-   `sapply()` apply a function on a vector (i.e. column)
+
+```{r, include = T}
+
+```
+
+<h3><strong>Merging Data sets</strong></h3>
+
+After cleaning the data, we need to merge the different files. There are 91 municipalities with no data available in the deforestation data set.
+
+-   `full_join()` join every field including non-matches
+
+-   `anti-join()` find every field that does not match
+
+```{r, include = T}
+
+```
+
+<h3><strong>Getting creative with the map</strong></h3>
+
+Now that we have the data needed for our map, we can create a palette of colors and some tags.
+
+-   `leaflet()` function to use leaflet
+
+-   `addTiles()` adds base map to your map
+
+    -   `addProviderTiles()` gets third party tiles
+
+    -   `addProviderTiles(providers$Stadia.AlidadeSmooth)` an example of a third party base map
+
+-   `addPolygons()`
+
+-   `names(providers)` search available basemaps
+
+```{r, include = T}
+
+```
