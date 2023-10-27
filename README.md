@@ -1,4 +1,4 @@
-<a href="https://rstudio.github.io/leaflet/"><img src="logo.png" width="250px" height="100px"/></a>
+<a href="https://rstudio.github.io/leaflet/"><img src="logo.png" width="250px" height="150px"/></a>
 
 # Interactive maps with Leaflet
 
