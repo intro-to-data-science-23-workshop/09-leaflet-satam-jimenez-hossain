@@ -44,7 +44,7 @@ Data Sources
 Video Tutorials
 - [Interactive Maps with R](https://www.youtube.com/playlist?list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r)
 - [Leaflet Mapping in R/RStudio](https://www.youtube.com/playlist?list=PLmFi_ou2WwcEyPq7Y9DvzFRLlp9-XvFDb)
-]
+
 
 ## License
 
