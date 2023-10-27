@@ -20,8 +20,8 @@ The goals of this session are to (1) equip you with conceptual knowledge about t
 
 ## Instructors
 
-- Manjiri Satam 
-- Rey Hossain
+- Manjiri Girish Satam 
+- Ray Hossain
 - Camilo Pedraza Jiménez
 
 
@@ -44,4 +44,5 @@ The material in this repository is made available under the [MIT license](http:/
 **Manjiri Satam** prepared the presentation slides and recording. 
 
 **Ray Hossain** prepared the practice material.
+
 **Camilo Pedraza Jiménez** prepared the practice material.
