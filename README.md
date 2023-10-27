@@ -44,4 +44,5 @@ The material in this repository is made available under the [MIT license](http:/
 **Manjiri Satam** prepared the presentation slides and recording. 
 
 **Ray Hossain** prepared the practice material.
+
 **Camilo Pedraza Jiménez** prepared the practice material.
