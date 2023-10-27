@@ -27,13 +27,23 @@ The goals of this session are to (1) equip you with conceptual knowledge about t
 
 ## Further resources
 
-- [Leaflet documentation in R](https://rstudio.github.io/leaflet/)
-- [Leaflet package cheat sheet](https://ugoproto.github.io/ugo_r_doc/pdf/leaflet-cheat-sheet.pdf)
-- [Video tutorial 1](https://www.youtube.com/playlist?list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r)
-- [Video tutorial 2](https://www.youtube.com/playlist?list=PLmFi_ou2WwcEyPq7Y9DvzFRLlp9-XvFDb)
-- [Maps and spatial data for all countries and their sub-divisions](https://gadm.org/)
-- [Set of third party tiles](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
-- [Leaflet for JavaScript](https://leafletjs.com/) 
+Leaflet
+- Official Leaflet [Website](https://leafletjs.com/)
+- Documentation of [Leatlet for R](https://rstudio.github.io/leaflet/) 
+- Comprehesive [Leaflet Cheat Sheet](https://ugoproto.github.io/ugo_r_doc/pdf/leaflet-cheat-sheet.pdf)
+
+Data Sources
+- List of [Third-Party Tiles](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) addProviderTiles() function
+- World Bank [Official Boundaries](https://datacatalog.worldbank.org/search/dataset/0038272)
+- European Union [GISCO - the Geographic Information System of the Commission](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries)
+- [List of open GeoJSON datasets](https://open-innovations.org/data/geojson.html)
+- DataHub [Geodata data package](https://datahub.io/core/geo-countries
+- [GADM Maps and Data](https://gadm.org/)
+
+Video Tutorials
+- [Interactive Maps with R](https://www.youtube.com/playlist?list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r)
+- [Leaflet Mapping in R/RStudio](https://www.youtube.com/playlist?list=PLmFi_ou2WwcEyPq7Y9DvzFRLlp9-XvFDb)
+]
 
 ## License
 
@@ -41,7 +51,7 @@ The material in this repository is made available under the [MIT license](http:/
 
 ## Statement of contributions
 
-**Manjiri Satam** prepared the presentation slides and recording. 
+**Manjiri Girish Satam** prepared the presentation slides and recording. 
 
 **Ray Hossain** prepared the practice material.
 
