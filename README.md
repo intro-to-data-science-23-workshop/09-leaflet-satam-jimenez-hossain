@@ -15,15 +15,16 @@ You can access our presentatition **[here](add link to the presentation)**, and 
 
 ### Main learning objectives
 
-The goals of this session are to (1) equip you with conceptual knowledge about the leaflet package and some of its applications for geospacial analysis, (2) show you  key functions and the basic steps to make an interactive map in R, and (3) provide you with practice exercise as well as some further material that can be useful for the topic of this workshop.
-
+The goals of this session are to 
+- equip you with conceptual knowledge about the leaflet package and some of its applications for geospatial analysis,
+- show you  key functions and the basic steps to make an interactive map in R, 
+- provide you with practice exercises as well as some further material that can be useful for the topic of this workshop.
 
 ## Instructors
 
 - Manjiri Girish Satam 
 - Ray Hossain
 - Camilo Pedraza Jiménez
-
 
 ## Further resources
 
