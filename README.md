@@ -11,7 +11,7 @@ This repository provides materials for a session that is part of the [I2DS Tools
 
 Join us for an engaging workshop session on the Leaflet package in R, where you'll dive into the world of interactive mapping and geospatial data visualization. Leaflet is a powerful and flexible open-source JavaScript library for creating interactive maps in web applications. In this session, you'll learn how to harness its capabilities within the R programming environment to create stunning, interactive maps for various purposes.
 
-You can access our presentatition [here](add link to the presentation), and our exercise example [here](add link to exercise).
+You can access our presentatition **[here](add link to the presentation)**, and our exercise example \[[**.html**](https://github.com/intro-to-data-science-23-workshop/09-leaflet-satam-jimenez-hossain/blob/main/Leaflet_Tutorial.html) | [**.Rmd**](https://github.com/intro-to-data-science-23-workshop/09-leaflet-satam-jimenez-hossain/blob/main/Leaflet_Tutorial.Rmd) | [**.R**](https://github.com/intro-to-data-science-23-workshop/09-leaflet-satam-jimenez-hossain/blob/main/Tutorial_Solutions_Code.R)\].
 
 ### Main learning objectives
 
