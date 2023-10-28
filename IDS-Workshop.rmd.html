@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Interactive Maps with Leaflet</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Camilo Pedraza Jiménez, Manjiri Girish Satam, Ray Hossain" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Interactive Maps with Leaflet
+]
+.subtitle[
+## IDS Workshop 2023, Hertie School
+]
+.author[
+### Camilo Pedraza Jiménez, Manjiri Girish Satam, Ray Hossain
+]
+
+---
+
+
+# Introduction to Leaflet 
+
+.pull-left[
+
+ ###What is Leaflet?
+
+- Create interactive maps
+- Open-source JavaScript library
+- No JavaScript knowledge required
+- Geospatial tool
+- R package for easy integration
+
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="leaftlet_logo.png" height=150 width=375&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+
+ ###Why Use Leaflet?
+
+- Free (unlike paid geospatial analysis tools like ArcGIS, Tableau)
+- Easy to use with knowledge of R
+- Clear documentation
+- Create interactive maps effortlessly
+- Add-ons provide additional features
+
+&lt;div align="center"&gt;
+&lt;img src="gif.gif" height=350 width=550&gt;&gt;
+&lt;/div&gt;
+]
+
+---
+
+# Use Cases
+
+Leaflet is a popular tool for creating interactive maps and is used in various real-life applications across different industries. For example:
+
+.pull-left[
+- Real Estate Listings
+- Geographic Information Systems (GIS)
+- Transportation and Logistics
+- Environmental Monitoring
+
+&lt;div align="center"&gt;
+&lt;b&gt;USA Education Map&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="usa_education.png" height=300&gt;
+&lt;/div&gt;
+
+]
+
+.pull-right[
+- Wildlife and Conservation
+- Location-based services
+- Real-time tracking
+- Storytelling with maps
+
+&lt;div align="center"&gt;
+&lt;b&gt;USA Wildfire Map&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="usa_wildfire.png" height=300&gt;
+&lt;/div&gt;
+
+]
+
+---
+
+# Basic Workflow of Leaflet
+
+.pull-left-vsmall[
+
+&lt;br&gt; 
+
+- Step 1: Determine the type of map you want to create
+- Step 2: Collect the necessary data
+- Step 3: Create your interactive map using Leaflet and R
+- Step 4: Publish your map to share with others
+
+]
+
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="workflow.png"&gt;
+&lt;/div&gt;
+
+---
+
+# Step 1: Determine the Map Type
+
+ ###Types of Maps
+- **Base Maps**: Streets, Satellite, Terrain, Topographic
+- **Custom Maps**: Heatmaps, Choropleths, Custom Tile Maps
+- **Overlay Maps**: Markers, Circles, Polygons, Lines, Popups and Tooltips
+- **Interactive Maps**: Zoom and Pan, Interactive Markers, Layer Control
+- **Time-Series Maps**: Temporal Data, Time-Slider
+
+
+.pull-left[
+&lt;div align="center"&gt;
+&lt;b&gt;Chloropleth: Total Votes (%) US 2016 General Elections&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="chloropleths.png" height=300&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+&lt;div align="center"&gt;
+&lt;b&gt;Heatmap: US Population Distribution&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="heatmap.jpg" height=300&gt;
+&lt;/div&gt;
+]
+
+
+---
+# Step 1: Types of Maps (Cont)
+
+.pull-left[
+&lt;div align="center"&gt;
+&lt;br&gt;&lt;b&gt;Base Map Types&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="base_maps_1.png" height=400&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+&lt;div align="center"&gt;
+&lt;br&gt;&lt;b&gt;Time Slider of Corona Spread&lt;/b&gt;
+&lt;br&gt;
+&lt;img src="covid_gif_time.gif" height=400&gt;
+&lt;/div&gt;
+]
+
+
+
+---
+
+# Step 2: Collect the Data 
+
+.pull-left[
+ 
+ ###What Data Do You Need?
+- Geographic coordinates (latitude, longitude)
+- Attributes for populating tooltips and popups
+- GeoJSON, CSV, or other compatible data formats
+
+&lt;div align="center"&gt;
+&lt;img src="shapefile_1.png" height=300&gt;
+&lt;/div&gt;
+]
+
+.pull-right[
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="geojson.png" height=75 width=275&gt;
+&lt;br&gt;
+&lt;img src="data_type.jpg" height=350 width= 350&gt;
+&lt;/div&gt;
+]
+
+---
+
+# Step 3: Create an Interactive Map
+
+&lt;div style="display: flex; justify-content: space-between; align-items: left;"&gt;
+  &lt;div style="flex: 1;"&gt;
+  
+.pull-left-vsmall[
+ 
+###Quick Overview
+- Basic Syntax: Creating a map object
+- Base Map Selection: Choose a base map style
+- Additional Maps: Overlaying data on the base map
+ 
+###Step-by-step Guide
+
+- Step 1: Install and Load Required Packages
+- Step 2: Prepare/Load Your Data
+- Step 3: Create and Customize the Base Map
+- Step 4: Add Data Layers
+- Step 5: Customize Popups and Tooltips
+]
+
+&lt;/div&gt;
+  &lt;div style="flex: 1; text-align: right;"&gt;
+    &lt;img src="code.png" width="450" height="470"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+---
+
+# Step 3: Create an Interactive Map (Cont)
+
+&lt;div style="display: flex; justify-content: space-between; align-items: left;"&gt;
+  &lt;div style="flex: 1;"&gt;
+
+.pull-left-vsmall[
+
+###Layers in Leaflet
+
+- **Tiles**: Provide the background for your maps
+- **Markers**: Display points with custom icons
+- **Circles**: Show data with radius and color
+- **Polygons**: Highlight areas with custom styling
+- **Polyline**: Draw lines on the map
+- **Popups and Tooltips**: Display information on click
+- **Heatmaps**: Visualize concentration/distribution of data
+
+&lt;img src="hertie-gif.gif" width="500"&gt;
+]
+
+&lt;/div&gt;
+  &lt;div style="flex: 1; text-align: center;"&gt;
+    &lt;b&gt;Circles and Markers&lt;/b&gt;
+    &lt;br&gt;
+    &lt;img src="Circles.png" height=250&gt;
+     &lt;br&gt;
+     &lt;b&gt;Popup&lt;/b&gt;
+     &lt;br&gt;
+     &lt;img src="popup.jpg" height=250&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+---
+
+#Step 4: Publish the Map
+
+###Publishing Methods for Interactive Maps
+
+- **Shiny Web Application**: Develop web-based interactive applications
+- **GitHub Pages**: Create a simple HTML page with the map
+- **R Markdown**: Publish your R Markdown presentation as an HTML document
+- **Interactive PDFs**: Embed maps in PDFs generated from R Markdown. Suitable for sharing within reports or documents
+- **Self-hosted Web Server**: Host maps on your own web server
+- **Export as a Standalone HTML**: Use saveWidget to save maps as standalone HTML
+- **RStudio Connect**: Publish and share maps through RStudio Connect
+
+
+---
+
+# Further References
+
+.pull-left-vsmall[
+
+###Leaflet
+
+- Official Leaflet [Website](https://leafletjs.com/)
+- Documentation of [Leatlet for R](https://rstudio.github.io/leaflet/) 
+- Comprehesive [Leaflet Cheat Sheet](https://ugoproto.github.io/ugo_r_doc/pdf/leaflet-cheat-sheet.pdf)
+
+###Data Sources
+
+- List of [Third-Party Tiles](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) addProviderTiles() function
+- World Bank [Official Boundaries](https://datacatalog.worldbank.org/search/dataset/0038272)
+- European Union [GISCO - the Geographic Information System of the Commission](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries)
+- [List of open GeoJSON datasets](https://open-innovations.org/data/geojson.html)
+- DataHub [Geodata data package](https://datahub.io/core/geo-countries
+- [GADM Maps and Data](https://gadm.org/)
+
+###Video Tutorials
+- [Interactive Maps with R](https://www.youtube.com/playlist?list=PL6wLL_RojB5y8uL3uuIMnJ6JoTIFywQ-r)
+- [Leaflet Mapping in R/RStudio](https://www.youtube.com/playlist?list=PLmFi_ou2WwcEyPq7Y9DvzFRLlp9-XvFDb)
+]
+
+---
+class: inverse, center, middle
+name: logistics
+
+# Thank you &lt;br&gt; Start creating your own interactive maps now!
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#F5FFFA' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"hash": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
