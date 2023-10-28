@@ -38,7 +38,7 @@ Data Sources
 - World Bank [Official Boundaries](https://datacatalog.worldbank.org/search/dataset/0038272)
 - European Union [GISCO - the Geographic Information System of the Commission](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries)
 - [List of open GeoJSON datasets](https://open-innovations.org/data/geojson.html)
-- DataHub [Geodata data package](https://datahub.io/core/geo-countries
+- DataHub [Geodata data package](https://datahub.io/core/geo-countries)
 - [GADM Maps and Data](https://gadm.org/)
 
 Video Tutorials
